@@ -1,4 +1,4 @@
-# Messenger
+# Messenger [![Build Status](https://travis-ci.org/maxikg/messenger-java.svg)](https://travis-ci.org/maxikg/messenger-java)
 
 Messenger is a routing library primary for AMQP but may be adoptable for other messaging systems. Messenger helps to
 realize a communication between various instances and software.
