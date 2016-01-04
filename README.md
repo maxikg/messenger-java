@@ -16,6 +16,24 @@ right exchange is available. Each subscription will bind the temporary queue to 
 
  * Simple handle of AMQP binds/unbinds
 
+## Installation
+
+The software is currently not deployed to any Maven repository. So you need to install it by hand:
+
+ 1. Clone the repository: `git clone https://github.com/maxikg/messenger-java.git`
+ 2. Change directory: `cd messenger-java`
+ 3. Invoke maven: `mvn install`
+
+After a successful build the library is available in your local Maven repository:
+
+```xml
+<dependency>
+    <groupId>de.maxikg</groupId>
+    <artifactId>messenger</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+</dependency>
+```
+
 ## Example
 
 Since the default implementation uses the AMQP protocol there is a compatible message broker required. I highly
