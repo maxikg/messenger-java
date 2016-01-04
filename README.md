@@ -92,10 +92,72 @@ The console will display "Hello World!" since this is published to *test* what w
 the second message won't be displayed since it is published on something we've never subscribed. The unroutable message
 will be just dropped.
 
+### Use Gson adapter
+
+If you want to use model objects instead of raw messages you can use Google GSON and the build in adapter for it.
+Please follow all above steps up to `messenger.initialize();` before you start with the Gson adapter. In the following
+example we use different imports:
+
+```java
+import com.rabbitmq.client.ConnectionFactory;
+import de.maxikg.messenger.AmqpMessenger;
+import de.maxikg.messenger.gson.AbstractObjectMessageListener;
+import de.maxikg.messenger.gson.ObjectMessenger;
+```
+
+Furthermore we using a Model class named `Demo`:
+
+```java
+public class Demo {
+
+    private final String test;
+    
+    public Demo(String test) {
+        this.test = test;
+    }
+    
+    public String getTest() {
+        return test;
+    }
+    
+    @Override
+    public void toString() {
+        return getClass().getSimpleName() + "(test=" + getTest() + ")";
+    }
+}
+```
+
+If your Messenger is ready you can start by constructing a `ObjectMessenger`:
+
+```java
+ObjectMessenger objectMessenger = new ObjectMessenger(messenger);
+```
+
+The ObjectMessenger is used to manage the Message-Object-Conversion. By default a objects class domain name is used for
+the type argument but you can specify type aliases on the `TypeRegistry`. In this example we don't use this feature.
+We directly registering a listener:
+
+```java
+messenger.getQueue().subscribe("test");
+objectMessenger.getListenerRegistry().register(new AbstractObjectMessageListener<Demo>(Demo.class) {
+    @Override
+    public void onMessage(String namespace, String target, Demo object) {
+        System.out.println(object);
+    }
+});
+```
+
+After the listener is registered you can submit a `Demo` object:
+
+```java
+objectMessenger.getPublisher().publish("test", new Demo("Hello World"));
+```
+
+The console should display something like `Demo(test=Hello World)`.
+
 ## ToDo
 
  * Correct reconnection handle
- * GSON serialization/deserialization adapter
  * Add JavaDoc
 
 ## License
