@@ -15,6 +15,7 @@ right exchange is available. Each subscription will bind the temporary queue to 
 ## Features
 
  * Simple handle of AMQP binds/unbinds
+ * Gson adapter for working with models instead of raw messages
 
 ## Installation
 
