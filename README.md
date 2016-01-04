@@ -96,6 +96,7 @@ will be just dropped.
 
  * Correct reconnection handle
  * GSON serialization/deserialization adapter
+ * Add JavaDoc
 
 ## License
 
